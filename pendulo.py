@@ -1,4 +1,4 @@
-# py.exe C:\Users\igorp\Desktop\VSCode\Estudos\Simulações\pendulo.py
+# py.exe C:\Users\igorp\Desktop\VSCode\Projetos\Simulações\pendulo.py
 import vpython as vp
 
 vp.scene.width = 800

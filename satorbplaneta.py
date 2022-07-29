@@ -1,4 +1,4 @@
-# py.exe C:\Users\igorp\Desktop\VSCode\Estudos\Simulações\satorbplaneta.py
+# py.exe C:\Users\igorp\Desktop\VSCode\Projetos\Simulações\satorbplaneta.py
 import vpython as vp
 
 vp.scene.tile = 'Sátelite orbitando um Planeta'

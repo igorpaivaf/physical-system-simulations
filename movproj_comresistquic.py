@@ -1,4 +1,4 @@
-# py.exe C:\Users\igorp\Desktop\VSCode\Estudos\Simulações\movproj_comresistquic.py
+# py.exe C:\Users\igorp\Desktop\VSCode\Projetos\Simulações\movproj_comresistquic.py
 import vpython as vp
 
 vp.scene.tile = 'Movimento Projétil sem Resistência do Ar Quicando'
