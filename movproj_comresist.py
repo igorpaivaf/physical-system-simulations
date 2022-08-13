@@ -1,61 +1,53 @@
 # py.exe C:\Users\igorp\Desktop\VSCode\Projetos\Simulações\movproj_comresist.py
 import vpython as vp
 
-vp.scene.tile = 'Movimento Projétil sem Resistência do Ar'
-vp.scene.width = vp.scene.height = 800 #tamanho da janela
+vp.scene.title='Movimento Projétil com Resistência do Ar'
+vp.scene.width=vp.scene.height= 800
 
-theta = 70 #ângulo inicial em graus
-thetarad = theta*vp.pi/180
-velinicial = 300
+theta = 70.0
+thetar = theta*vp.pi/180.0
+vini = 300.0
+g = vp.vector(0.0,-9.8,0.0)
 
-g = vp.vector(0.0,-9.8,0.0) #aceleração da gravidade
+chão = vp.box(pos=vp.vector(0,0.0,0), size=vp.vector(8000,10,1000.0), color=vp.color.green)
 
-chao = vp.box(pos=vp.vector(0,0,0), size=vp.vector(5000,10,5000), color=vp.color.green) #Piso
-eixo_x = vp.cylinder(pos=vp.vector(0,1000,0), size=vp.vector(1000,10,10), axis=vp.vector(1,0,0), color=vp.color.magenta)
-eixo_y = vp.cylinder(pos=vp.vector(0,1000,0), size=vp.vector(1000,10,10), axis=vp.vector(0,1,0), color=vp.color.magenta)
-eixo_z = vp.cylinder(pos=vp.vector(0,1000,0), size=vp.vector(1000,10,10), axis=vp.vector(0,0,1), color=vp.color.magenta)
-ponta_x = vp.cone(pos=vp.vector(1000,1000,0), size=vp.vector(100,100,100), axis=vp.vector(1,0,0), color=vp.color.magenta)
-ponta_y = vp.cone(pos=vp.vector(0,2000,0), size=vp.vector(100,100,100), axis=vp.vector(0,1,0), color=vp.color.magenta)
-ponta_z = vp.cone(pos=vp.vector(0,1000,1000), size=vp.vector(100,100,100), axis=vp.vector(0,0,1), color=vp.color.magenta)
-legenda_x = vp.label(pos=vp.vector(1000,1200,0), text='X', box=0, opacity=0, color=vp.color.white)
-legenda_y = vp.label(pos=vp.vector(-200,2000,0), text='Y', box=0, opacity=0, color=vp.color.white)
-legenda_z = vp.label(pos=vp.vector(-200,1000,1000), text='Z', box=0, opacity=0, color=vp.color.white)
-
-#projetil esfera
 raio = 0.04
-ro = 1.2
-A = vp.pi*(raio**2)
-C = 0.47
-
 proj = vp.sphere(pos=vp.vector(-500,raio,0), radius=raio, color=vp.color.white, make_trail=True)
 
-#velocidade inicial projetil
-projvelinicial = vp.vector(velinicial*vp.cos(thetarad), velinicial*vp.sin(thetarad),0)
+projvini = vp.vector(vini*vp.cos(thetar), vini*vp.sin(thetar), 0)
 
-projmassa = 0.5 #massa
+projm = 0.5 # massa
 
-projp = projmassa * projvelinicial #momento linear
+projp = projm*projvini # momento linear
 
-projFar = (-ro/2)*(A*C*(vp.mag(projvelinicial)**2)*(vp.norm(projvelinicial)))
-Fres = (projmassa*g) + projFar #Força resultante
+Fp = projm*g
 
-t0 = 0
+projA = vp.pi*(raio**2) # area
+
+projC = 0.01 # coeficiente de arrasto projetil
+
+roar = 1.2 # densidade ar
+
+Far = (-1/2)*roar*projA*projC*vp.mag(projvini)**2*vp.norm(projvini)
+
+t = 0.0
 dt = 0.001
+
 arscale = 2
 vetor = vp.arrow(pos=proj.pos, axis=arscale*projp, color=vp.color.red)
 
-while proj.pos.y >= raio:
-    vp.rate(50)
+while (proj.pos.y >= raio):
+    Fres = Fp + Far
+    vp.rate(10000)
     
-    projp = projp + Fres*t0
+    a = Fres/projm
+    projvini = projvini + a*dt
+    projp = projm*projvini
+    proj.pos += projvini*dt
     
-    proj.pos = proj.pos + (projp/projmassa)*t0
-    
-    vetor.pos = proj.pos
     vetor.axis = arscale*projp
-    projv = projp/projmassa
+    vetor.pos = proj.pos
     
-    projFar = (-ro/2)*(A*C*(vp.mag(projv)**2)*(vp.norm(projv)))
-    Fres = (projmassa*g) + projFar
+    Far = (-1/2)*roar*projA*projC*vp.mag(projvini)**2*vp.norm(projvini)
     
-    t0 += dt
+    t += dt

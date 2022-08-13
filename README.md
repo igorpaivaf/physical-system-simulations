@@ -1,31 +1,17 @@
-# Introdução a Computação em Física
+# Introduction to Physical Computation
 
 ---
 
-## Movimento de um Projétil com Resistência do Ar
-
-- Funciona para qualquer valor de velocidade inicial
-
-- Funciona para qualquer ângulo em relação ao semieixo positivo de x
+## Movement of a projectile with air resistance
 
 ---
 
-## Movimento de um Projétil com Resistência do Ar e Quicando
-
-- **<u>Não funciona</u>** para qualquer valor de velocidade inicial
-
-- Funciona para qualquer ângulo em relação ao semieixo positivo de x
+## Movement of a projectile with air resistance and bouncing
 
 ---
 
-## Pêndulo
-
-- 100% funcional
+## Pendulum
 
 ---
 
-## Satélite orbitando um Planeta
-
-- **<u>Precisa de alterações e refinamentos</u>**
-
-
+## Satellite orbiting a planet
